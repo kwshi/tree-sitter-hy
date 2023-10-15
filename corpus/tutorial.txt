@@ -1,0 +1,134 @@
+===
+hello world example
+===
+(print "Hy, world!")
+---
+(source_file
+ (expression (symbol) (string)))
+
+===
+simple binary addition
+===
+(+ 1 3)
+---
+(source_file
+ (expression (symbol) (int) (int)))
+
+===
+slightly more complicated arithmetic expression
+===
+(- (* (+ 1 3 88) 2) 8)
+---
+(source_file
+ (expression (symbol)
+  (expression (symbol)
+   (expression (symbol) (int) (int) (int))
+   (int))
+  (int)))
+
+===
+simple comment example
+===
+(setv password "susan") ; my daughter's name
+---
+(source_file
+ (expression (symbol) (symbol) (string))
+ (comment))
+
+===
+shebang example
+===
+#!/usr/bin/env hy
+(print "Make me executable, and run me!")
+---
+(source_file
+ (shebang)
+ (expression (symbol) (string)))
+
+===
+simple setv example
+===
+(setv zone-plane 8)
+---
+(source_file (expression (symbol) (symbol) (int)))
+
+===
+extended setv example with get
+===
+(setv fruit ["apple" "banana" "cantaloupe"])
+(print (get fruit 0))  ; => apple
+(setv (get fruit 1) "durian")
+(print (get fruit 1))  ; => durian
+---
+(source_file
+ (expression (symbol) (symbol) (list (string) (string) (string)))
+ (expression (symbol) (expression (symbol) (symbol) (int))) (comment)
+ (expression (symbol) (expression (symbol) (symbol) (int)) (string))
+ (expression (symbol) (expression (symbol) (symbol) (int))) (comment))
+
+===
+simple `if` example
+===
+(if (= 1 1)
+  (print "Math works. The universe is safe.")
+  (print "Math has failed. The universe is doomed."))
+---
+(source_file
+ (expression (symbol) (expression (symbol) (int) (int))
+  (expression (symbol) (string))
+  (expression (symbol) (string))))
+
+===
+simple `cond` example
+===
+(setv somevar 33)
+(cond
+  (> somevar 50)
+    (print "That variable is too big!")
+  (< somevar 10)
+    (print "That variable is too small!")
+  True
+    (print "That variable is jussssst right!"))
+---
+(source_file
+ (expression (symbol) (symbol) (int))
+ (expression (symbol)
+  (expression (symbol) (symbol) (int))
+  (expression (symbol) (string))
+  (expression (symbol) (symbol) (int))
+  (expression (symbol) (string))
+  (symbol)
+  (expression (symbol) (string))))
+
+===
+simple loops example
+===
+(setv x 3)
+(while (> x 0)
+  (print x)
+  (setv x (- x 1)))  ; => 3 2 1
+
+(for [x [1 2 3]]
+  (print x))         ; => 1 2 3
+---
+(source_file
+ (expression (symbol) (symbol) (int))
+ (expression (symbol) (expression (symbol) (symbol) (int))
+  (expression (symbol) (symbol))
+  (expression (symbol) (symbol) (expression (symbol) (symbol) (int))))
+ (comment)
+ (expression (symbol) (list (symbol) (list (int) (int) (int)))
+  (expression (symbol) (symbol)))
+ (comment))
+
+===
+simple `lfor` example
+===
+(print (lfor  x [1 2 3]  (* x 2)))  ; => [2, 4, 6]
+---
+(source_file
+ (expression (symbol)
+  (expression (symbol) (symbol)
+   (list (int) (int) (int))
+   (expression (symbol) (symbol) (int))))
+  (comment))
