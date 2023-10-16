@@ -55,7 +55,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "string"
+          "name": "_string"
         }
       ]
     },
@@ -121,6 +121,14 @@
         },
         {
           "type": "SYMBOL",
+          "name": "dotted_identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword"
+        },
+        {
+          "type": "SYMBOL",
           "name": "symbol"
         }
       ]
@@ -134,21 +142,241 @@
         },
         {
           "type": "SYMBOL",
+          "name": "complex"
+        },
+        {
+          "type": "SYMBOL",
           "name": "float"
         }
       ]
     },
     "int": {
-      "type": "PATTERN",
-      "value": "\\d+"
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "([+-][,_]*)"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "PATTERN",
+            "value": "(\\d[,_\\d]*|0[,_]*([xX][,_0-9A-Fa-f]+|[bB][,_01]+|[oO][,_0-7]+))"
+          }
+        ]
+      }
     },
     "float": {
-      "type": "PATTERN",
-      "value": "\\d\\."
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "([+-][,_]*)"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "PATTERN",
+            "value": "(NaN|Inf|(\\d[,_\\d]*(\\.[,_\\d]*)?|\\.[,_]*\\d[,_\\d]*)([eE][,_]*[+-]?[,_]*\\d[\\d,_]*)?)"
+          }
+        ]
+      }
+    },
+    "complex": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "PATTERN",
+                        "value": "([+-][,_]*)"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "PATTERN",
+                    "value": "(NaN|Inf|(\\d[,_\\d]*(\\.[,_\\d]*)?|\\.[,_]*\\d[,_\\d]*)([eE][,_]*[+-]?[,_]*\\d[\\d,_]*)?)"
+                  },
+                  {
+                    "type": "PATTERN",
+                    "value": "([+-][,_]*)"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "PATTERN",
+            "value": "(NaN|Inf|(\\d[,_\\d]*(\\.[,_\\d]*)?|\\.[,_]*\\d[,_\\d]*)([eE][,_]*[+-]?[,_]*\\d[\\d,_]*)?)"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[jJ]"
+          }
+        ]
+      }
+    },
+    "dotted_identifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "."
+              }
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "STRING",
+                  "value": "."
+                }
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_symbol_immediate"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "IMMEDIATE_TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": "."
+                    }
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_symbol_immediate"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "symbol"
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "IMMEDIATE_TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": "."
+                    }
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_symbol_immediate"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": ":"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "PATTERN",
+              "value": "[^()\\[\\]{};\"'`~\\s.]"
+            }
+          }
+        ]
+      }
     },
     "symbol": {
-      "type": "PATTERN",
-      "value": "[^()\\[\\]{};\"'`~\\s]+"
+      "type": "TOKEN",
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "PATTERN",
+          "value": "[^()\\[\\]{};\"'`~\\s.]"
+        }
+      }
+    },
+    "_symbol_immediate": {
+      "type": "ALIAS",
+      "content": {
+        "type": "IMMEDIATE_TOKEN",
+        "content": {
+          "type": "REPEAT1",
+          "content": {
+            "type": "PATTERN",
+            "value": "[^()\\[\\]{};\"'`~\\s.]"
+          }
+        }
+      },
+      "named": true,
+      "value": "symbol"
+    },
+    "_string": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        }
+      ]
     },
     "string": {
       "type": "PATTERN",

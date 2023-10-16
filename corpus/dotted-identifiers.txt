@@ -1,0 +1,27 @@
+===
+basic example
+===
+foo.bar.baz
+---
+(source_file
+ (dotted_identifier (symbol) (symbol) (symbol)))
+
+===
+with leading dots
+===
+.foo.bar
+..a.b.c
+---
+(source_file
+ (dotted_identifier (symbol) (symbol))
+ (dotted_identifier (symbol) (symbol) (symbol)))
+
+===
+function call
+===
+(.split (.strip line))
+---
+(source_file
+ (expression
+  (dotted_identifier (symbol))
+  (expression (dotted_identifier (symbol)) (symbol))))

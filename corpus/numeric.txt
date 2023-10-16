@@ -1,0 +1,54 @@
+===
+int literal with commas and underscores
+===
+10_000_000_000
+10,000,000,000
+---
+(source_file (int) (int))
+
+===
+hexadecimal, octal, binary examples from python reference
+===
+7     2147483647                        0o177    0b100110111
+3     79228162514264337593543950336     0o377    0xdeadbeef
+      100_000_000_000                   0b_1110_0101
+---
+(source_file
+ (int) (int) (int) (int)
+ (int) (int) (int) (int)
+ (int) (int))
+
+===
+hy-specific comma/underscore placement (undocumented but works empirically)
+===
+0_x_e 0,,__,b1011 -_2 +,1._,_5e3
+---
+(source_file (int) (int) (int) (float))
+
+===
+floating point literals from python reference
+===
+3.14    10.    .001    1e100    3.14e-10    0e0    3.14_15_93
+---
+(source_file
+ (float) (float) (float) (float) (float) (float) (float))
+
+===
+imaginary literals from python reference
+===
+3.14j   10.j    10j     .001j   1e100j   3.14e-10j   3.14_15_93j
+---
+(source_file
+ (complex) (complex) (complex) (complex) (complex) (complex) (complex))
+
+===
+hy-specific literals
+===
+Inf NaN
+Infj NaNj InfJ NaNJ
+1+Infj NaN+Infj -Inf-NaNj
+---
+(source_file
+ (float) (float)
+ (complex) (complex) (complex) (complex)
+ (complex) (complex) (complex))

@@ -1,6 +1,6 @@
 [
   {
-    "type": "expression",
+    "type": "dotted_identifier",
     "named": true,
     "fields": {},
     "children": {
@@ -8,7 +8,30 @@
       "required": true,
       "types": [
         {
+          "type": "symbol",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
           "type": "comment",
+          "named": true
+        },
+        {
+          "type": "complex",
+          "named": true
+        },
+        {
+          "type": "dotted_identifier",
           "named": true
         },
         {
@@ -21,6 +44,10 @@
         },
         {
           "type": "int",
+          "named": true
+        },
+        {
+          "type": "keyword",
           "named": true
         },
         {
@@ -51,6 +78,14 @@
           "named": true
         },
         {
+          "type": "complex",
+          "named": true
+        },
+        {
+          "type": "dotted_identifier",
+          "named": true
+        },
+        {
           "type": "expression",
           "named": true
         },
@@ -60,6 +95,10 @@
         },
         {
           "type": "int",
+          "named": true
+        },
+        {
+          "type": "keyword",
           "named": true
         },
         {
@@ -90,6 +129,14 @@
           "named": true
         },
         {
+          "type": "complex",
+          "named": true
+        },
+        {
+          "type": "dotted_identifier",
+          "named": true
+        },
+        {
           "type": "expression",
           "named": true
         },
@@ -99,6 +146,10 @@
         },
         {
           "type": "int",
+          "named": true
+        },
+        {
+          "type": "keyword",
           "named": true
         },
         {
@@ -129,6 +180,10 @@
     "named": false
   },
   {
+    "type": ".",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -141,11 +196,19 @@
     "named": true
   },
   {
+    "type": "complex",
+    "named": true
+  },
+  {
     "type": "float",
     "named": true
   },
   {
     "type": "int",
+    "named": true
+  },
+  {
+    "type": "keyword",
     "named": true
   },
   {
