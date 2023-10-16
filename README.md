@@ -47,7 +47,7 @@ Hy is a new-ish language, to the point where Neovim doesn't automatically recogn
 
 3. Restart Neovim, then run `:TSInstall hy`.
 
-   You'll also need to _manually_ add syntax-highlighting queries to your local installation of Neovim, since `:TSInstall` only installs the grammar itself, but not the queries. To do so, download the [queries/][queries/] folder in this repository, and save it to a [queries/] folder anywhere in your Neovim runtimepath, e.g., `~/.config/nvim`. Example folder structure:
+   You'll also need to _manually_ add syntax-highlighting queries to your local installation of Neovim, since `:TSInstall` only installs the grammar itself, but not the queries. To do so, download the [`queries/`](queries/) folder in this repository, and save it to a `queries/` folder anywhere in your Neovim runtimepath, e.g., `~/.config/nvim`. Example folder structure:
 
    - `~/.config/nvim`
      - `init.lua` or `init.vim`, etc.
